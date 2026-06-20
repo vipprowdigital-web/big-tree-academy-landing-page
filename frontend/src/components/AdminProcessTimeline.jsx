@@ -53,7 +53,7 @@ export default function AdmissionTimeline() {
   return (
     <section
       ref={sectionRef}
-      className="w-full bg-primary text-secondary relative overflow-hidden px-6 py-16 md:px-12 md:py-20"
+      className="w-full bg-primary text-secondary relative overflow-hidden px-6 py-10 md:px-12 md:py-20"
       id="admission"
     >
       {/* Google Fonts */}

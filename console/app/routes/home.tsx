@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "The Big Tree Academy Admin Console" },
+    { title: "The Big Tree Beauty Academy Admin Console" },
     { name: "description", content: "Welcome to The Big Tree Academy!" },
   ];
 }

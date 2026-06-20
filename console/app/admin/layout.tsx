@@ -43,7 +43,7 @@ export default function AdminLayout({
               <BreadcrumbList>
                 <BreadcrumbItem>
                   <BreadcrumbLink href="/admin/course">
-                    The Big Tree Academy Console
+                    The Big Tree Beauty Academy Console
                   </BreadcrumbLink>
                 </BreadcrumbItem>
 

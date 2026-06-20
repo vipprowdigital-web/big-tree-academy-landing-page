@@ -175,18 +175,18 @@ export default function Footer({ appConfig: config }) {
                 onClick={() => scrollTo(link.href)}
                 // href={link.href}
                 className="font-sans-clean text-[13px] font-medium flex items-center gap-2 group transition-all duration-200 w-fit"
-                style={{ color: `${SECONDARY}66` }}
+                style={{ color: `${SECONDARY}90` }}
                 onMouseEnter={(e) => (e.currentTarget.style.color = SECONDARY)}
                 onMouseLeave={(e) =>
                   (e.currentTarget.style.color = `${SECONDARY}66`)
                 }
               >
-                <span
+                {/* <span
                   className="inline-block transition-transform duration-200 group-hover:translate-x-1"
                   style={{ fontSize: "10px" }}
                 >
                   ──
-                </span>
+                </span> */}
                 {link.label}
               </button>
             ))}

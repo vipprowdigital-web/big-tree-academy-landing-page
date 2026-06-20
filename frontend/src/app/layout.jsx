@@ -7,7 +7,7 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 });
 
 export const metadata = {
-  title: "The Big Tree Academy",
+  title: "The Big Tree Beauty Academy",
   description: "Makeup Academy",
   icons: {
     icon: "/assets/images/logos/big-tree-logo.png",

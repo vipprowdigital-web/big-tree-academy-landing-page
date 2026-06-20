@@ -469,13 +469,13 @@ export default function Courses({ onContactClick }) {
               : "text-primary/60 hover:text-primary"
           }`}
         >
-          Digital Classes
+          Online / Digital Classes
         </button>
       </div>
 
       {/* ── FILTER CHIPS TRACK ── */}
       <div className="w-full border-b border-primary/10 pb-4 mb-16">
-        <div className="max-w-4xl mx-auto flex items-center gap-2 overflow-x-auto no-scrollbar px-2 flex-nowrap justify-start">
+        <div className="max-w-4xl mx-auto flex items-center gap-2 overflow-x-auto no-scrollbar px-2 flex-nowrap justify-center">
           {dynamicCategories.map((cat) => {
             const isActive = activeSubCategory === cat;
             return (
@@ -525,6 +525,15 @@ export default function Courses({ onContactClick }) {
                 courses={filteredCourses}
                 onContactClick={onContactClick}
               />
+            ) : filteredCourses.length === 1 ? (
+              <div className="flex justify-center">
+                <div className="w-full max-w-sm">
+                  <CourseCard
+                    course={filteredCourses[0]}
+                    onContactClick={onContactClick}
+                  />
+                </div>
+              </div>
             ) : (
               <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 xl:gap-12 items-start">
                 {filteredCourses.map((course) => (
@@ -670,7 +679,7 @@ function CourseCard({ course, onContactClick }) {
         />
         <div className="absolute inset-0 bg-linear-to-t from-primary/75 via-primary/0 to-primary/0" />
 
-        <span className="absolute top-4 left-4 text-[9px] font-sans-clean uppercase font-bold tracking-[0.2em] px-3 py-1.5 rounded-full bg-secondary/95 text-primary backdrop-blur-sm">
+        <span className="absolute top-4 left-4 text-[9px] font-sans-clean uppercase font-bold tracking-[0.2em] px-3 py-1.5 rounded-full bg-primary text-secondary backdrop-blur-sm">
           {course.categoryLabel}
         </span>
 

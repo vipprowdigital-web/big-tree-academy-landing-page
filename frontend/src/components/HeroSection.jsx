@@ -1,15 +1,7 @@
 // "use client";
 
 import Image from "next/image";
-import {
-  BotanicalBranch,
-  CompactPowder,
-  Lipstick,
-  MakeupBrush,
-  NailPolish,
-  PerfumeBottle,
-  RoseBloom,
-} from "./ui/Decoratives";
+import { Lipstick, MakeupBrush, PerfumeBottle } from "./ui/Decoratives";
 import { scrollTo } from "@/utils/scroll.utils";
 import CardFan from "./ui/CardFan";
 
@@ -28,7 +20,7 @@ export default function HeroSection({ onShopNowClick }) {
         }
       `}</style>
 
-      <div className="absolute top-5 left-5 sm:left-50">
+      <div className="absolute top-5 left-4 sm:left-50">
         <Image
           src="/assets/images/logos/big-tree-logo2.png"
           width={120}
@@ -39,36 +31,36 @@ export default function HeroSection({ onShopNowClick }) {
       </div>
 
       {/* ── BACKGROUND WATERMARK LEAF EMBELLISHMENTS ── */}
-      <div className="absolute top-20 sm:top-0 -left-10 sm:left-0 w-32 h-32 opacity-20 pointer-events-none md:w-48 md:h-48 rotate-45">
+      <div className="absolute top-20 sm:top-20 -left-10 sm:-left-10 w-32 h-32 opacity-20 pointer-events-none md:w-48 md:h-48 rotate-45">
         {/* Decorative Leaf outline mimicking the reference background top-left */}
-        <PerfumeBottle className="text-primary sm:text-secondary w-40 sm:w-80" />
+        <MakeupBrush className="text-primary sm:text-secondary w-40 sm:w-60 sm:opacity-100 opacity-50" />
       </div>
-      <div className="absolute bottom-20 sm:right-14 w-40 h-40 opacity-20 pointer-events-none md:w-64 md:h-64 -rotate-25">
+      <div className="absolute bottom-20 sm:right-14 sm:block hidden w-40 h-40 opacity-20 pointer-events-none md:w-64 md:h-64 -rotate-25">
         {/* Decorative Leaf outline mimicking the reference background top-right */}
         <Lipstick className="w-100 mt-10" />
       </div>
 
       {/* ── TOP HERO HEADER SECTION ── */}
       <div className="w-full max-w-5xl mx-auto text-center mt-20 sm:mt-6 z-10">
-        <h1 className="font-serif-editorial text-[clamp(2rem,5vw,4.25rem)] font-normal leading-[1.15] tracking-tight max-w-4xl mx-auto capitalize">
-          The Big Tree Academy <br className="hidden sm:inline" /> Build Skills.
-          <span className="inline-block align-middle mx-3 w-10 h-10 sm:w-20 sm:h-20 relative overflow-hidden">
-            {/* Inline Product Thumbnail Jar within title heading */}
+        <h1 className="font-serif-editorial text-[clamp(2rem,5vw,4rem)] font-normal leading-[1.15] tracking-tight max-w-4xl mx-auto capitalize">
+          The Big Tree Makeup Academy <br className="hidden sm:inline" /> Build
+          Skills.{" "}
+          {/* <span className="hidden sm:inline-block align-middle w-10 h-10 sm:ml-0 sm:w-20 sm:h-15 relative overflow-hidden">
             <Image
-              src="/assets/images/hero-icon-image.png"
+              src="/assets/images/hero-cosmetic.png"
               alt="Cosmetic product"
               fill
               className="object-cover"
             />
-          </span>
+          </span> */}
           Create Success.
         </h1>
       </div>
 
       {/* ── MIDDLE GRID ASYMMETRICAL WRAPPER ── */}
-      <div className="w-full max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-center my-8 z-10 relative">
+      <div className="w-full max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-center pt-5 sm:my-8 z-10 relative">
         {/* LEFT COMPARTMENT: Rating & Feature Card Thumbnail */}
-        <div className="lg:col-span-3 flex flex-col space-y-6 justify-self-start w-full max-w-60">
+        <div className="lg:col-span-3 flex flex-col space-y-6 justify-self-start w-full sm:max-w-60">
           {/* Micro Rating Row */}
           {/* <div className="flex items-center justify-between text-sm font-sans-clean font-medium tracking-wide border-b border-primary/10 pb-2 text-primary">
             <span className="opacity-60">Rating</span>
@@ -86,7 +78,7 @@ export default function HeroSection({ onShopNowClick }) {
                 className="object-cover"
               />
             </div> */}
-            <h3 className="font-serif-editorial text-xl font-medium leading-tight">
+            <h3 className="font-serif-editorial text-xl font-medium leading-tight sm:text-left text-center">
               Step into the world of professional beauty education with
               expert-led training, hands-on practical experience, and
               industry-focused learning.
@@ -95,7 +87,7 @@ export default function HeroSection({ onShopNowClick }) {
         </div>
 
         {/* CENTERPIECE HERO IMAGE: Fluid Liquid Splashes with Spilled Nail Polish Bottles */}
-        <div className="lg:col-span-6 relative flex justify-center items-center w-full min-h-80 md:min-h-110">
+        <div className="lg:col-span-6 relative flex justify-center items-center w-full sm:min-h-80 md:min-h-90">
           {/* <div className="relative w-full aspect-4/3 max-w-130">
             <Image
               src="/assets/images/hero-image4.png"
@@ -107,15 +99,15 @@ export default function HeroSection({ onShopNowClick }) {
           </div> */}
           <CardFan
             images={[
-              "/assets/images/hero-image-1.jpg",
-              "/assets/images/hero-image-2.jpg",
-              "/assets/images/hero-image-3.jpg",
+              "/assets/images/image1.jpg",
+              "/assets/images/image3.jpg",
+              "/assets/images/image4.jpg",
             ]}
           />
         </div>
 
         {/* RIGHT COMPARTMENT: Short Review Highlight Paragraph & Circular Shop CTA Button */}
-        <div className="lg:col-span-3 flex flex-col space-y-12 lg:items-end lg:text-right w-full">
+        <div className="lg:col-span-3 flex flex-col space-y-5 sm:space-y-12 lg:items-end lg:text-right w-full">
           <div className="max-w-60 space-y-2 lg:ml-auto">
             <span className="inline-block text-lg">✦</span>
             <p className="font-sans-clean text-xs leading-relaxed opacity-80 font-medium">

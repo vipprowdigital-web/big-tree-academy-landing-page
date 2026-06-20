@@ -349,7 +349,7 @@ export default function GallerySection() {
 
   return (
     <section
-      className="w-full bg-secondary text-primary overflow-hidden py-12"
+      className="w-full bg-secondary text-primary overflow-hidden pb-7 sm:py-12"
       id="gallery"
     >
       {/* Google Fonts — same as HeroSection */}

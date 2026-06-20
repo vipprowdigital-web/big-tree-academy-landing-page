@@ -84,7 +84,7 @@ export default function Testimonials() {
   return (
     <section
       ref={sectionRef}
-      className="w-full bg-secondary text-primary py-24 px-4 sm:px-8 lg:px-16 overflow-hidden relative selection:bg-primary selection:text-secondary"
+      className="w-full bg-secondary text-primary py-10 sm:py-24 px-4 sm:px-8 lg:px-16 overflow-hidden relative selection:bg-primary selection:text-secondary"
     >
       {(loading || !testimonials.length) && (
         <p className="text-center text-primary/40 font-sans-clean text-xs uppercase tracking-widest">
@@ -138,7 +138,7 @@ export default function Testimonials() {
                 <span className="w-8 h-px bg-primary/40" />
               </div>
 
-              <h2 className="font-serif-editorial text-[clamp(2.4rem,5.5vw,4.2rem)] font-light leading-[1.05] tracking-tight text-primary">
+              <h2 className="font-serif-editorial text-[clamp(2.4rem,5.5vw,3.25rem)] font-light leading-[1.05] tracking-tight text-primary">
                 What Our <span className="italic font-normal">Students</span>{" "}
                 Say
               </h2>
@@ -148,6 +148,12 @@ export default function Testimonials() {
             {/* ── TESTIMONIAL CARDS: GRID OR CAROUSEL ── */}
             {testimonials.length > 3 ? (
               <TestimonialSlider testimonials={testimonials} />
+            ) : testimonials.length === 1 ? (
+              <div className="flex justify-center">
+                <div className="w-full sm:w-120 lg:w-130">
+                  <TestimonialCard testimonial={testimonials[0]} />
+                </div>
+              </div>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 {testimonials.map((t) => (
@@ -222,7 +228,10 @@ function TestimonialSlider({ testimonials }) {
         className="flex gap-8 overflow-x-auto no-scrollbar snap-x snap-mandatory pb-2 scroll-smooth"
       >
         {testimonials.map((t) => (
-          <div key={t.id} className="snap-start shrink-0 w-[85%] sm:w-72 lg:w-80 xl:w-96">
+          <div
+            key={t.id}
+            className="snap-start shrink-0 w-[85%] sm:w-72 lg:w-80 xl:w-96"
+          >
             <TestimonialCard testimonial={t} />
           </div>
         ))}
@@ -267,9 +276,9 @@ function TestimonialSlider({ testimonials }) {
 /* ── TESTIMONIAL CARD: DARK ON CREAM FOR CONTRAST ── */
 function TestimonialCard({ testimonial }) {
   return (
-    <div className="relative flex flex-col h-full bg-primary text-secondary rounded-[24px] sm:rounded-[28px] p-5 sm:p-6 lg:p-8 overflow-hidden shadow-[0_24px_48px_-24px_rgba(40,8,46,0.4)] transition-transform duration-500 hover:-translate-y-1.5">
+    <div className="relative flex flex-col h-full bg-linear-to-tr from-primary via-primary to-secondary text-secondary rounded-3xl sm:rounded-[28px] p-5 sm:p-6 lg:p-8 overflow-hidden border border-primary shadow-[0_24px_48px_-24px_rgba(40,8,46,0.4)] transition-transform duration-500 hover:-translate-y-1.5">
       {/* Oversized watermark quote mark, subtle on the dark surface */}
-      <span className="absolute -top-8 -left-2 font-serif-editorial text-[8rem] text-secondary/10 leading-none pointer-events-none select-none">
+      <span className="absolute -top-5 left-0 font-serif-editorial text-[8rem] text-secondary/10 leading-none pointer-events-none select-none">
         “
       </span>
 

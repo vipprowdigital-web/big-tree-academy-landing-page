@@ -330,7 +330,7 @@ export function Lipstick({ className = "" }) {
 export function MakeupBrush({ className = "" }) {
   return (
     <svg
-      viewBox="0 0 200 200"
+      viewBox="0 0 240 240"
       fill="none"
       stroke="currentColor"
       strokeLinecap="round"
@@ -338,22 +338,57 @@ export function MakeupBrush({ className = "" }) {
       className={className}
       aria-hidden="true"
     >
-      {/* round bristle head */}
+      {/* 1. Fluffy, dense bristle head (flares out gently from ferrule then arches beautifully at tip) */}
       <path
-        d="M76,52 C76,28 86,14 100,14 C114,14 124,28 124,52 C124,66 113,76 100,76 C87,76 76,66 76,52 Z"
-        strokeWidth="1.2"
+        d="M 96,78 
+           C 82,78 72,55 72,36 
+           C 72,16 94,10 120,10 
+           C 146,10 168,16 168,36 
+           C 168,55 158,78 144,78 
+           Z"
+        strokeWidth="4"
       />
-      <path d="M90,28 C88,38 88,48 90,58" strokeWidth="0.3" opacity="0.4" />
-      <path d="M110,28 C112,38 112,48 110,58" strokeWidth="0.3" opacity="0.4" />
-      {/* metal ferrule */}
-      <path d="M90,76 L110,76 L107,96 L93,96 Z" strokeWidth="0.9" />
-      <line x1="91" y1="86" x2="109" y2="86" strokeWidth="0.4" opacity="0.5" />
-      {/* handle, tapered with rounded end */}
+
+      {/* Bristle inner texture lines for organic depth & flow */}
+      <path d="M 108,76 C 102,60 102,40 108,20" strokeWidth="1" opacity="0.4" />
       <path
-        d="M93,96 L91,150 C91,162 95,170 100,174 C105,170 109,162 109,150 L107,96 Z"
+        d="M 120,76 C 120,55 120,35 120,14"
         strokeWidth="1.2"
+        opacity="0.4"
       />
-      <line x1="97" y1="105" x2="96" y2="155" strokeWidth="0.4" opacity="0.4" />
+      <path d="M 132,76 C 138,60 138,40 132,20" strokeWidth="1" opacity="0.4" />
+
+      {/* 2. Premium Metal Ferrule (perfect alignment link between bristles and handle) */}
+      <path d="M 96,78 L 144,78 L 141,114 L 99,114 Z" strokeWidth="3.5" />
+      {/* Horizontal style ridges reflecting glossy metallic surfaces */}
+      <line
+        x1="97.5"
+        y1="90"
+        x2="142.5"
+        y2="90"
+        strokeWidth="1.5"
+        opacity="0.6"
+      />
+      <line
+        x1="98.5"
+        y1="102"
+        x2="141.5"
+        y2="102"
+        strokeWidth="1.5"
+        opacity="0.6"
+      />
+
+      {/* 3. Sleek Ergonomic Handle (slims gracefully down, dropping into a weighted tip) */}
+      <path
+        d="M 99,114 
+           L 105,190 
+           C 106,215 110,230 120,230 
+           C 130,230 134,215 135,190 
+           L 141,114"
+        strokeWidth="4"
+      />
+      {/* Elegant light-catching ridge along the handle stem */}
+      <path d="M 115,124 L 115,195" strokeWidth="1" opacity="0.3" />
     </svg>
   );
 }

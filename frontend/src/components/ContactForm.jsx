@@ -79,7 +79,7 @@ export default function ContactForm({ selectedCourse = "", appConfig = null }) {
 
   return (
     <section
-      className="w-full bg-secondary text-primary py-24 px-4 sm:px-8 lg:px-16 overflow-hidden relative selection:bg-primary selection:text-secondary"
+      className="w-full bg-secondary text-primary py-10 sm:py-24 px-4 sm:px-8 lg:px-16 overflow-hidden relative selection:bg-primary selection:text-secondary"
       id="contact"
     >
       {/* Font & Custom Selection Overrides */}

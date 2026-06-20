@@ -26,7 +26,7 @@ export default function CareerTransformation() {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <section className="w-full bg-secondary text-primary py-24 px-4 sm:px-8 lg:px-16 overflow-hidden relative selection:bg-primary selection:text-secondary">
+    <section className="w-full bg-secondary text-primary py-10 sm:py-24 px-4 sm:px-8 lg:px-16 overflow-hidden relative selection:bg-primary selection:text-secondary">
       {/* Font Core Styles */}
       <style jsx global>{`
         @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Montserrat:wght@300;400;500;600;700&display=swap");
@@ -39,30 +39,30 @@ export default function CareerTransformation() {
       `}</style>
 
       {/* Dynamic Background Fluid Glow Canvas */}
-      <div
+      {/* <div
         className="absolute right-[-10%] top-[20%] w-150 h-150 rounded-full blur-[140px] pointer-events-none opacity-20 transition-all duration-1000 ease-in-out"
         style={{
           background: `radial-gradient(circle, var(--primary) 0%, transparent 70%)`,
           transform: `translateY(${activeIndex * 40}px)`,
         }}
-      />
+      /> */}
 
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-start relative z-10">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-start relative z-10 ">
         {/* ── LEFT FIXED ASSET: EDITORIAL COVER LOOKBOOK PANEL ── */}
         <div className="lg:col-span-5 lg:sticky lg:top-16 flex flex-col items-start gap-6">
-          <div className="flex items-center gap-3 text-[10px] font-sans-clean uppercase font-bold tracking-[0.28em] text-primary/80">
-            <span className="w-8 h-px bg-primary/50" />
+          <div className="flex items-center gap-3 text-[10px] font-sans-clean uppercase font-bold tracking-[0.28em] text-primary/80 mx-auto sm:mx-0">
+            <span className="w-8 h-px bg-primary/50 " />
             Empowering Beauty Careers
           </div>
 
-          <h2 className="font-serif-editorial text-[clamp(2.5rem,5vw,4rem)] font-light leading-[1.05] tracking-tight text-primary">
+          <h2 className="font-serif-editorial text-[clamp(2.5rem,5vw,4rem)] font-light leading-[1.05] tracking-tight text-primary sm:text-left text-center">
             Transform Your Passion Into{" "}
             <span className="italic font-normal text-primary">
               Professional Excellence
             </span>
           </h2>
 
-          <p className="text-xs md:text-sm font-sans-clean font-light leading-[1.8] text-primary max-w-sm">
+          <p className="text-xs md:text-sm font-sans-clean font-light leading-[1.8] text-primary max-w-sm sm:text-left text-center">
             At The Big Tree Beauty Academy, we provide industry-focused
             education, expert mentorship, and practical training designed to
             help aspiring beauty professionals build successful careers with
@@ -70,11 +70,11 @@ export default function CareerTransformation() {
           </p>
 
           {/* Large Editorial Dynamic Stage Indicator Accent */}
-          <div className="hidden lg:flex items-baseline gap-2 mt-12 font-serif-editorial">
-            <span className="text-7xl font-light text-primary/10">
+          <div className="hidden lg:flex items-baseline gap-2 sm:mt-12 font-serif-editorial">
+            <span className="text-7xl font-light text-primary">
               {String(activeIndex + 1).padStart(2, "0")}
             </span>
-            <span className="text-sm tracking-widest uppercase text-primary/40 font-sans-clean">
+            <span className="text-sm tracking-widest uppercase text-primary font-sans-clean">
               / {String(academyFeatures.length).padStart(2, "0")} Focus Area
             </span>
           </div>
@@ -93,7 +93,7 @@ export default function CareerTransformation() {
                 className="relative w-full flex flex-col sm:flex-row items-start sm:items-center justify-between py-8 px-4 cursor-pointer border-b border-primary/10 transition-all duration-500 ease-out group overflow-hidden"
               >
                 {/* Embedded Multi-Stop Interactive Gradient Layer */}
-                <div
+                {/* <div
                   className={`absolute inset-0 -z-10 transition-opacity duration-700 ease-out ${
                     isSelected ? "opacity-100" : "opacity-0"
                   }`}
@@ -101,12 +101,12 @@ export default function CareerTransformation() {
                     background:
                       "linear-gradient(90deg, rgba(var(--primary-rgb), 0.08) 0%, rgba(var(--primary-rgb), 0.01) 50%, transparent 100%)",
                   }}
-                />
+                /> */}
 
                 {/* Left metadata marker alignment */}
                 <div className="flex items-center gap-6 sm:gap-10 w-full sm:w-auto">
                   {/* Digital Index Trace */}
-                  <span className="font-serif-editorial text-sm md:text-base italic tracking-widest text-primary/30 group-hover:text-primary transition-colors duration-300">
+                  <span className="font-serif-editorial text-sm md:text-lg italic tracking-widest text-primary group-hover:text-primary transition-colors duration-300">
                     {paddedIndex}
                   </span>
 
@@ -129,7 +129,7 @@ export default function CareerTransformation() {
                       className={`font-sans-clean text-sm md:text-base font-medium tracking-wide transition-all duration-300 ${
                         isSelected
                           ? "text-primary font-semibold"
-                          : "text-primary/70"
+                          : "text-primary"
                       }`}
                     >
                       {feature.title}
