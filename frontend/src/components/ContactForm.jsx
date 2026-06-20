@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
+import { formatPhone } from "@/utils/colors.utils";
 
 const initialData = {
   name: "",
@@ -137,22 +138,27 @@ export default function ContactForm({ selectedCourse = "", appConfig = null }) {
               </p>
             </div>
             <div className="flex flex-wrap gap-8">
-              <div>
-                <h6 className="text-xs font-bold tracking-widest text-primary uppercase mb-1">
-                  Direct Line
-                </h6>
-                <p className="text-sm text-primary font-normal">
-                  {appConfig?.phoneNumber || "+91 70783 32794"}
-                </p>
-              </div>
-              <div>
-                <h6 className="text-xs font-bold tracking-widest text-primary uppercase mb-1">
-                  Inquiries
-                </h6>
-                <p className="text-sm text-primary/80 font-normal">
-                  {appConfig?.email || "bigtreeacademy@gmail.com"}
-                </p>
-              </div>
+              {appConfig?.phoneNumber && (
+                <div>
+                  <h6 className="text-xs font-bold tracking-widest text-primary uppercase mb-1">
+                    Direct Line
+                  </h6>
+                  <p className="text-sm text-primary font-normal">
+                    +91{" "}
+                    {formatPhone(appConfig?.phoneNumber) || "+91 00000 00000"}
+                  </p>
+                </div>
+              )}
+              {appConfig?.email && (
+                <div>
+                  <h6 className="text-xs font-bold tracking-widest text-primary uppercase mb-1">
+                    Inquiries
+                  </h6>
+                  <p className="text-sm text-primary/80 font-normal">
+                    {appConfig?.email || "noemail@gmail.com"}
+                  </p>
+                </div>
+              )}
             </div>
           </div>
         </div>

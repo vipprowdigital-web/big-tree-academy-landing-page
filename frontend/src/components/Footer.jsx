@@ -13,6 +13,7 @@ import { SiGmail } from "react-icons/si";
 import { FaLocationDot, FaXTwitter } from "react-icons/fa6";
 import { IoLogoWhatsapp } from "react-icons/io";
 import { scrollTo } from "@/utils/scroll.utils";
+import { formatPhone, ensureCountryCode } from "@/utils/colors.utils";
 
 const PRIMARY = "#28082e";
 const SECONDARY = "#ffe9cb";
@@ -21,7 +22,8 @@ export default function Footer({ appConfig: config }) {
   const loading = false;
 
   const appName = config?.appName || "The Big Tree Beauty Academy";
-  const phoneNumber = config?.phoneNumber || "+91 70783 32794";
+  const phoneNumber = formatPhone(config?.phoneNumber) || "+91 70783 32794";
+  const phoneRaw = ensureCountryCode(config?.phoneNumber || "7078332794");
   const email = config?.email || "thebigtreeacademy@gmail.com";
 
   const addresses =
@@ -39,7 +41,7 @@ export default function Footer({ appConfig: config }) {
     {
       name: "Phone",
       value: phoneNumber,
-      link: `tel:${phoneNumber}`,
+      link: `tel:+${phoneRaw}`,
       icon: <FaPhoneAlt size={18} />,
     },
     {
@@ -99,7 +101,7 @@ export default function Footer({ appConfig: config }) {
               height={100}
               loading="eager"
               priority
-              className="w-40"
+              className="sm:w-40"
             />
             <p
               className="font-sans-clean text-[13px] leading-relaxed mt-1"

@@ -1,3 +1,18 @@
+// Formats a phone number to "XXXXX XXXXX" (last 10 digits, space after 5th)
+// and ensures the raw dial string starts with 91
+export function formatPhone(raw = "") {
+  const digits = String(raw).replace(/\D/g, "");
+  const last10 = digits.slice(-10);
+  if (last10.length === 10) return `${last10.slice(0, 5)} ${last10.slice(5)}`;
+  return raw;
+}
+
+export function ensureCountryCode(raw = "") {
+  const digits = String(raw).replace(/\D/g, "");
+  if (!digits.startsWith("91")) return `91${digits}`;
+  return digits;
+}
+
 //  ------------ TEXT COLORS -----------------
 const textColor1 = "text-[#1f2937]";
 const textColor2 = "text-[#826955]";

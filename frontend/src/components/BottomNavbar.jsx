@@ -3,19 +3,24 @@
 import { FaBookOpenReader } from "react-icons/fa6";
 import { FaWhatsapp } from "react-icons/fa";
 import { CiMail } from "react-icons/ci";
+import { ensureCountryCode } from "@/utils/colors.utils";
 
 const PRIMARY = "#28082e";
 const SECONDARY = "#ffe9cb";
 // Slightly brighter accent for the FAB so it pops on the dark bar
 const ACCENT = "#f5c97a";
 
-export default function BottomNavbar({ onContactClick, onCourseClick }) {
+export default function BottomNavbar({
+  onContactClick,
+  onCourseClick,
+  phoneNumber,
+}) {
   const handleWhatsAppClick = () => {
-    const phoneNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "";
+    const phone = ensureCountryCode(phoneNumber || "");
     const message = encodeURIComponent(
       "Hello! I would like to know more about The Big Tree Beauty Academy courses.",
     );
-    window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
+    window.open(`https://wa.me/${phone}?text=${message}`, "_blank");
   };
 
   return (
