@@ -189,15 +189,18 @@ const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:8000";
 
 // depth 0 = front/center, depth 1 = right peek, depth 2 = far right (hidden)
 // zIndex is intentionally excluded — controlled via style prop so it's never animated
+// Update this near the top of your file
 const DEPTH_STYLE = {
-  0: { x: 0, y: 0, rotate: 0, scale: 1, opacity: 1 },
-  1: { x: 130, y: 14, rotate: 10, scale: 0.8, opacity: 0.6 },
-  2: { x: 210, y: 26, rotate: 16, scale: 0.64, opacity: 0 },
+  0: { x: "-50%", y: 0, rotate: 0, scale: 1, opacity: 1 }, // Center / Front
+  1: { x: "-120%", y: 15, rotate: -10, scale: 0.85, opacity: 0.7 }, // Left Peek
+  2: { x: "20%", y: 15, rotate: 10, scale: 0.85, opacity: 0.7 }, // Right Peek
 };
 
-const DEPTH_Z = { 0: 30, 1: 20, 2: 10 };
+// Depth 0 (Center) stays on top of both flanks
+const DEPTH_Z = { 0: 30, 1: 20, 2: 20 };
 
-const EXIT_STYLE = { x: 280, rotate: 18, scale: 0.55, opacity: 0 };
+// Smooth exit animation drifting off-screen
+const EXIT_STYLE = { x: "80%", y: 30, rotate: 20, scale: 0.6, opacity: 0 };
 
 // One full cycle: every card glides to its next position over this whole
 // duration, with no resting/static period — that's what makes the loop
@@ -254,7 +257,8 @@ function StackCard({ photo, depth, onClick, reduceMotion }) {
             }
       }
       transition={{ duration: SHIFT_SECONDS, ease: SHIFT_EASE }}
-      className="absolute top-0 left-1/2 -translate-x-1/2 w-55 h-72.5 md:w-67.5 md:h-87.5 rounded-xl overflow-hidden shadow-xl cursor-pointer group bg-primary/10"
+      // Inside the StackCard component, update the class string:
+      className="absolute top-0 left-1/2 w-55 h-72.5 md:w-67.5 md:h-87.5 rounded-xl overflow-hidden shadow-xl cursor-pointer group bg-primary/10 select-none origin-bottom"
       style={{ zIndex }}
     >
       {src && (
@@ -279,17 +283,19 @@ function SkeletonStack() {
 // Builds the small visible window of cards around the current index,
 // without duplicating an index if the photo set is too small.
 // Change this function right above the GallerySection component
+// Replace the helper function right above your main component
 function getVisible(photos, index) {
   const length = photos.length;
   if (length === 0) return [];
 
-  // Array of depths: 0 is front-most, 1 is middle peek, 2 is far background
+  // 0 = Center, 1 = Left side, 2 = Right side
   const depths = length >= 3 ? [0, 1, 2] : length === 2 ? [0, 1] : [0];
 
   return depths.map((d) => {
-    // FIX: Match the current active 'index' directly to depth 0 (front),
-    // and pull the upcoming future cards into depth 1 and depth 2 positions.
-    const i = (index + d) % length;
+    let i = index;
+    if (d === 1) i = (index - 1 + length) % length; // Card that just passed (Left)
+    if (d === 2) i = (index + 1) % length; // Upcoming card (Right)
+
     return { depth: d, photo: photos[i], idx: i };
   });
 }

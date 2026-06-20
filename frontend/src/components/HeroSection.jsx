@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 
 import Image from "next/image";
 import {
@@ -28,21 +28,31 @@ export default function HeroSection({ onShopNowClick }) {
         }
       `}</style>
 
-      {/* ── BACKGROUND WATERMARK LEAF EMBELLISHMENTS ── */}
-      <div className="absolute top-0 left-0 w-32 h-32 opacity-20 pointer-events-none md:w-48 md:h-48 rotate-45">
-        {/* Decorative Leaf outline mimicking the reference background top-left */}
-        <PerfumeBottle className="text-primary sm:text-secondary w-20 sm:w-80" />
+      <div className="absolute top-5 left-5 sm:left-50">
+        <Image
+          src="/assets/images/logos/big-tree-logo2.png"
+          width={120}
+          height={120}
+          alt="Logo"
+          className="w-full h-20 sm:h-full"
+        />
       </div>
-      <div className="absolute bottom-20 right-14 w-40 h-40 opacity-20 pointer-events-none md:w-64 md:h-64 -rotate-25">
+
+      {/* ── BACKGROUND WATERMARK LEAF EMBELLISHMENTS ── */}
+      <div className="absolute top-20 sm:top-0 -left-10 sm:left-0 w-32 h-32 opacity-20 pointer-events-none md:w-48 md:h-48 rotate-45">
+        {/* Decorative Leaf outline mimicking the reference background top-left */}
+        <PerfumeBottle className="text-primary sm:text-secondary w-40 sm:w-80" />
+      </div>
+      <div className="absolute bottom-20 sm:right-14 w-40 h-40 opacity-20 pointer-events-none md:w-64 md:h-64 -rotate-25">
         {/* Decorative Leaf outline mimicking the reference background top-right */}
         <Lipstick className="w-100 mt-10" />
       </div>
 
       {/* ── TOP HERO HEADER SECTION ── */}
-      <div className="w-full max-w-5xl mx-auto text-center mt-6 z-10">
+      <div className="w-full max-w-5xl mx-auto text-center mt-20 sm:mt-6 z-10">
         <h1 className="font-serif-editorial text-[clamp(2rem,5vw,4.25rem)] font-normal leading-[1.15] tracking-tight max-w-4xl mx-auto capitalize">
           The Big Tree Academy <br className="hidden sm:inline" /> Build Skills.
-          <span className="inline-block align-middle mx-3 w-14 h-8 sm:w-20 sm:h-20 relative overflow-hidden">
+          <span className="inline-block align-middle mx-3 w-10 h-10 sm:w-20 sm:h-20 relative overflow-hidden">
             {/* Inline Product Thumbnail Jar within title heading */}
             <Image
               src="/assets/images/hero-icon-image.png"
