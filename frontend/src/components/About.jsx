@@ -143,7 +143,7 @@ export default function AboutAcademy({ onCourseClick }) {
           {/* Central Image Container */}
           <div className="relative w-72 h-96 md:w-80 md:h-105 lg:w-96 lg:h-120 rounded-[30px] overflow-hidden shadow-2xl z-10">
             <Image
-              src="/assets/images/image5.jpg"
+              src="/assets/images/image5.png"
               alt="Live Masterclass Session at The Big Tree Beauty Academy"
               fill
               className="object-cover transition-transform duration-700 hover:scale-105"

@@ -99,9 +99,9 @@ export default function HeroSection({ onShopNowClick }) {
           </div> */}
           <CardFan
             images={[
-              "/assets/images/image1.jpg",
-              "/assets/images/image3.jpg",
-              "/assets/images/image4.jpg",
+              "/assets/images/image1.png",
+              "/assets/images/image3.png",
+              "/assets/images/image4.png",
             ]}
           />
         </div>
