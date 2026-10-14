@@ -14,11 +14,13 @@ export default function BottomNavbar({
   onContactClick,
   onCourseClick,
   phoneNumber,
+  appName,
 }) {
   const handleWhatsAppClick = () => {
     const phone = ensureCountryCode(phoneNumber || "");
+    if (!phone) return;
     const message = encodeURIComponent(
-      "Hello! I would like to know more about The Big Tree Beauty Academy courses.",
+      `Hello! I would like to know more about ${appName || "your"} courses.`,
     );
     window.open(`https://wa.me/${phone}?text=${message}`, "_blank");
   };

@@ -74,9 +74,7 @@ const contactUsSchema = new Schema(
     },
     preferredLocation: {
       type: String,
-      required: true,
       trim: true,
-      default: "Dehradun",
     },
 
     message: {

@@ -177,7 +177,7 @@ export function SignupForm({
           </form>
           <div className="relative hidden md:block bg-primary">
             <img
-              src="/public/logo/big-tree-logo.png"
+              src="/logo/big-tree-logo.png"
               alt="Image"
               className="absolute inset-0 h-full w-full object-contain"
             />

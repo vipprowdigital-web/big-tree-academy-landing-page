@@ -81,6 +81,7 @@ export default function Home() {
         onContactClick={scrollToContact}
         onCourseClick={scrollToCourses}
         phoneNumber={appConfig?.phoneNumber}
+        appName={appConfig?.appName}
       />
       <Footer appConfig={appConfig} />
       <Toaster position="top-center" reverseOrder={false} />

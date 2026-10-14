@@ -136,7 +136,7 @@ export function SignInForm({
               </FieldDescription>
             </FieldGroup>
           </form>
-          <div className="relative hidden md:block bg-primary ">
+          <div className="relative hidden md:block bg-[#111111]">
             <img
               src="/logo/big-tree-logo.png"
               alt="Image"

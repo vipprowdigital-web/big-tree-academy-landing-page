@@ -234,11 +234,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <div className=" text-sidebar-primary-foreground flex aspect-square size-10 items-center justify-center rounded-lg">
+            <div className="flex aspect-square size-10 items-center justify-center overflow-hidden rounded-lg">
               <img
                 src="/logo/big-tree-logo.png"
-                alt=""
-                className="absolute inset-0 mt-3 h-full w-full object-contain"
+                alt="The Big Tree Academy"
+                className="h-full w-full object-contain"
               />
             </div>
           </SidebarMenuItem>

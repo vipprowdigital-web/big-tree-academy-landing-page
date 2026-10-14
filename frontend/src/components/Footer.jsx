@@ -21,21 +21,23 @@ const SECONDARY = "#ffe9cb";
 export default function Footer({ appConfig: config }) {
   const loading = false;
 
-  const appName = config?.appName || "The Big Tree Beauty Academy";
-  const phoneNumber = formatPhone(config?.phoneNumber) || "+91 70783 32794";
-  const phoneRaw = ensureCountryCode(config?.phoneNumber || "7078332794");
-  const email = config?.email || "thebigtreeacademy@gmail.com";
-
-  const addresses =
-    Array.isArray(config?.companyAddress) && config.companyAddress.length > 0
-      ? config.companyAddress
-      : [{ address: "Dehradun, Uttarakhand, India", googleMapLocation: "" }];
+  const appName = config?.appName || "";
+  const phoneNumber = config?.phoneNumber
+    ? `+91 ${formatPhone(config.phoneNumber)}`
+    : "";
+  const phoneRaw = config?.phoneNumber
+    ? ensureCountryCode(config.phoneNumber)
+    : "";
+  const email = config?.email || "";
+  const address = Array.isArray(config?.companyAddress)
+    ? config.companyAddress[0]
+    : null;
 
   const details = [
     {
       name: "Address",
-      value: addresses[0]?.address || "",
-      link: addresses[0]?.googleMapLocation || "#",
+      value: address?.address || "",
+      link: address?.googleMapLocation || "#",
       icon: <FaLocationDot size={18} />,
     },
     {
@@ -50,7 +52,7 @@ export default function Footer({ appConfig: config }) {
       link: `mailto:${email}`,
       icon: <SiGmail size={18} />,
     },
-  ];
+  ].filter((d) => d.value);
 
   const socials = [
     { name: "Facebook", link: config?.facebookLink, icon: <FaFacebookF /> },

@@ -47,13 +47,17 @@ export default function ContactForm({ selectedCourse = "", appConfig = null }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const phoneDigits = formData.phoneNumber.replace(/[\s()+-]/g, "");
+    if (!/^[0-9]{10,15}$/.test(phoneDigits)) {
+      toast.error("Please enter a valid phone number (10–15 digits).");
+      return;
+    }
     try {
       const payload = {
         name: formData.name,
         email: formData.email,
-        phone: formData.phoneNumber,
+        phone: phoneDigits,
         courseName: formData.courseInterest,
-        preferredLocation: "Dehradun",
         message: formData.message,
       };
 
@@ -126,17 +130,16 @@ export default function ContactForm({ selectedCourse = "", appConfig = null }) {
 
           {/* Luxury Studio Metadata Details block */}
           <div className="flex flex-col gap-5 pt-8 border-t border-primary/10 w-full font-sans-clean">
-            <div>
-              <h6 className="text-xs font-bold tracking-widest text-primary uppercase mb-1">
-                Academy Location
-              </h6>
-              <p className="text-sm text-primary/80 font-normal leading-relaxed max-w-xs">
-                {Array.isArray(appConfig?.companyAddress) &&
-                appConfig.companyAddress[0]?.address
-                  ? appConfig.companyAddress[0].address
-                  : "32/6, Laxmi Road, Near Doon International School, Dalanwala, Dehradun, 248001"}
-              </p>
-            </div>
+            {appConfig?.companyAddress?.[0]?.address && (
+              <div>
+                <h6 className="text-xs font-bold tracking-widest text-primary uppercase mb-1">
+                  Academy Location
+                </h6>
+                <p className="text-sm text-primary/80 font-normal leading-relaxed max-w-xs">
+                  {appConfig?.companyAddress?.[0]?.address}
+                </p>
+              </div>
+            )}
             <div className="flex flex-wrap gap-8">
               {appConfig?.phoneNumber && (
                 <div>
@@ -144,8 +147,7 @@ export default function ContactForm({ selectedCourse = "", appConfig = null }) {
                     Direct Line
                   </h6>
                   <p className="text-sm text-primary font-normal">
-                    +91{" "}
-                    {formatPhone(appConfig?.phoneNumber) || "+91 00000 00000"}
+                    +91 {formatPhone(appConfig.phoneNumber)}
                   </p>
                 </div>
               )}
@@ -155,7 +157,7 @@ export default function ContactForm({ selectedCourse = "", appConfig = null }) {
                     Inquiries
                   </h6>
                   <p className="text-sm text-primary/80 font-normal">
-                    {appConfig?.email || "noemail@gmail.com"}
+                    {appConfig.email}
                   </p>
                 </div>
               )}

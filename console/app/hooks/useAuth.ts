@@ -9,10 +9,10 @@ export function useAuth() {
     const registerMutation = useMutation({
         mutationFn: registerUser,
         onSuccess: (data) => {
-            console.info("Registered successfully.", data);
+            // console.info("Registered successfully.", data);
         },
         onError: (error: any) => {
-            console.error("Registered failed.", error.message);
+            // console.error("Registered failed.", error.message);
         },
     });
 

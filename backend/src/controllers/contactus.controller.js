@@ -43,7 +43,7 @@ export const createContactUs = async (req, res) => {
     const contact = await ContactUs.create({
       name,
       // email,
-      phone: phone || null,
+      phone: String(phone).replace(/[\s()+-]/g, ""),
       courseName,
       preferredLocation,
       // subject: subject || null,
@@ -61,6 +61,14 @@ export const createContactUs = async (req, res) => {
       data: contact,
     });
   } catch (error) {
+    if (error instanceof mongoose.Error.ValidationError) {
+      const errors = Object.values(error.errors).map((e) => e.message);
+      return res.status(400).json({
+        status: "error",
+        message: errors.join(", "),
+        errors,
+      });
+    }
     console.error("❌ Error creating contact:", error);
     return res
       .status(500)

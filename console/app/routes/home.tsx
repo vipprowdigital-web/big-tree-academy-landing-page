@@ -17,7 +17,7 @@ export default function Home() {
         <header className="flex flex-col items-center gap-9 w-full">
           <div className="w-full max-w-[400px] p-4 flex justify-center gap-5">
             <img
-              src="/public/logo/big-tree-logo.png"
+              src="/logo/big-tree-logo.png"
               alt="The Big Tree"
               className="h-auto flex-1 w-auto"
             />
