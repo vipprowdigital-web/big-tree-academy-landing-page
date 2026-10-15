@@ -43,7 +43,7 @@ export default function HeroSection({ onShopNowClick }) {
       {/* ── TOP HERO HEADER SECTION ── */}
       <div className="w-full max-w-5xl mx-auto text-center mt-20 sm:mt-6 z-10">
         <h1 className="font-serif-editorial text-[clamp(2rem,5vw,4rem)] font-normal leading-[1.15] tracking-tight max-w-4xl mx-auto capitalize">
-          The Big Tree Makeup Academy <br className="hidden sm:inline" /> Build
+          The Big Tree Beauty Academy <br className="hidden sm:inline" /> Build
           Skills.{" "}
           {/* <span className="hidden sm:inline-block align-middle w-10 h-10 sm:ml-0 sm:w-20 sm:h-15 relative overflow-hidden">
             <Image

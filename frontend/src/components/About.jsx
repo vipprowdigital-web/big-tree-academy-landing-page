@@ -112,7 +112,7 @@ export default function AboutAcademy({ onCourseClick }) {
 
         {/* Main Title */}
         <h2 className="font-serif-editorial text-[clamp(2rem,5vw,4.25rem)] font-normal leading-[1.15] tracking-tight max-w-4xl mx-auto capitalize">
-          About <span className="italic font-normal">The Big Tree Makeup</span>{" "}
+          About <span className="italic font-normal">The Big Tree Beauty</span>{" "}
           Academy
         </h2>
 
