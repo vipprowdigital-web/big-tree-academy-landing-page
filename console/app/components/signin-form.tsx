@@ -77,7 +77,7 @@ export function SignInForm({
                 <h1 className="text-2xl font-bold">Welcome back</h1>
                 <p className="text-muted-foreground text-sm text-balance">
                   Login to your{" "}
-                  {import.meta.env.VITE_APP_NAME || "The Big Tree Academy"}{" "}
+                  {import.meta.env.VITE_APP_NAME || "The Big Tree Beauty Academy"}{" "}
                   account
                 </p>
               </div>
@@ -132,7 +132,7 @@ export function SignInForm({
               </Field>
               <FieldDescription className="text-center">
                 Don't have an account? Contact with Admin.
-                <Link to="/sign-up">Sign Up</Link>
+                {/* <Link to="/sign-up">Sign Up</Link> */}
               </FieldDescription>
             </FieldGroup>
           </form>

@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import slugify from "slugify";
 import Policy from "../models/policy.model.js";
 
@@ -205,7 +206,7 @@ export const destroyPolicyById = async (req, res) => {
 export const getAllActivePolicies = async (req, res) => {
   try {
     const policies = await Policy.find({ isActive: true })
-      .select("title")
+      .select("title slug")
       .sort({ createdAt: -1 })
       .lean();
 
@@ -220,15 +221,19 @@ export const getAllActivePolicies = async (req, res) => {
   }
 };
 
-/** 🔍 Get Active Policy by ID (Public) */
+/** 🔍 Get Active Policy by slug or ID (Public) */
 export const getActivePolicyById = async (req, res) => {
   try {
-    const policy = await Policy.findById(req.params.id).lean();
+    const { id } = req.params;
+    const filter = mongoose.Types.ObjectId.isValid(id)
+      ? { _id: id, isActive: true }
+      : { slug: id.toLowerCase(), isActive: true };
+    const policy = await Policy.findOne(filter).lean();
 
     if (!policy) {
       return res
         .status(404)
-        .json({ message: `No active policy found for id: ${id}` });
+        .json({ message: `No active policy found for: ${id}` });
     }
 
     return res.status(200).json({
@@ -236,7 +241,7 @@ export const getActivePolicyById = async (req, res) => {
       data: policy,
     });
   } catch (error) {
-    console.error("❌ Error fetching policy by slug:", error.message);
+    console.error("❌ Error fetching policy:", error.message);
     res.status(500).json({ message: "Internal Error", error: error.message });
   }
 };

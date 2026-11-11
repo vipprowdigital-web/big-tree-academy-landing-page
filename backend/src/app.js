@@ -54,12 +54,11 @@ const allowedOrigins = [
   "http://localhost:3000",
   "http://localhost:3001",
   "http://localhost:5173",
-  "http://localhost:5174",
-  "http://localhost:5175",
 
   // Local network URLs
   "http://192.168.29.175:3000",
-  "http://192.168.29.192:3000",
+  "http://172.19.228.248:3000",
+  "http://192.168.1.8:3000",
 ].filter(Boolean);
 
 // ===============================================

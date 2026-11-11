@@ -65,7 +65,7 @@
 
   /* Your Brand Palette: Light Mode Defaults */
   --primary: #28082e; /* Dark purple */
-  --secondary: #ffe9cb; /* Light cream */
+  --secondary: #ffffff; /* White */
 
   --background: var(--secondary);
   --foreground: var(--primary);
@@ -79,15 +79,15 @@
   --secondary-foreground: var(--primary);
 
   /* Balanced neutrals mapped from your dark purple base */
-  --muted: #f2dcbe;
+  --muted: #f4f0f5;
   --muted-foreground: #5a445f;
 
-  --accent: #ffdca8;
+  --accent: #efe8f1;
   --accent-foreground: #28082e;
 
   --destructive: oklch(0.577 0.245 27.325);
-  --border: #e6cfb3;
-  --input: #e6cfb3;
+  --border: #e6dfe9;
+  --input: #e6dfe9;
   --ring: #28082e;
 
   /* Charts */

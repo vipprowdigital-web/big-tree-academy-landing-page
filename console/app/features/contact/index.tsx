@@ -183,12 +183,6 @@ export default function ContactPage() {
     },
 
     {
-      accessorKey: "preferredLocation",
-      header: "Location",
-      cell: ({ row }) => row.original.preferredLocation || "-",
-    },
-
-    {
       accessorKey: "message",
       header: "Message",
       cell: ({ row }) => (

@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-10T12:00:00.000Z",
+  "title": "Design System: The Big Tree Beauty Academy landing page",
+  "extensions": {
+    "colorMeta": {
+      "plum": { "role": "primary", "displayName": "Plum", "canonical": "#1b0717", "tonalRamp": ["#12031a", "#1b0717", "#2a0b1f", "#5a3563", "#80648a", "#a99ab0", "#d3cad6", "#efeaf1"] },
+      "cream": { "role": "secondary", "displayName": "Cream", "canonical": "#f7e9df", "tonalRamp": ["#a8763a", "#d0a063", "#f0c58b", "#f7e9df", "#fff0d9", "#fff5e6", "#fff9f0", "#fffcf8"] },
+      "mist": { "role": "neutral", "displayName": "Mist", "canonical": "#fcf7f3", "tonalRamp": ["#22101e", "#6b5a62", "#8c7f91", "#b8aebc", "#efe3db", "#f3eef5", "#fcf7f3", "#ffffff"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero and article titles." },
+      "headline": { "displayName": "Headline", "purpose": "Section titles." },
+      "title": { "displayName": "Title", "purpose": "Card and step titles." },
+      "body": { "displayName": "Body", "purpose": "Running copy and leads." }
+    },
+    "shadows": [],
+    "motion": [
+      { "name": "ease-out", "value": "power3.out", "purpose": "GSAP entrance easing for hero and section reveals." },
+      { "name": "control", "value": "0.25s ease", "purpose": "Button and chip state transitions." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Main action on white and mist grounds.",
+      "html": "<button class=\"ds-btn-primary\">Explore courses</button>",
+      "css": ".ds-btn-primary{background:#1b0717;color:#fff;padding:13px 24px;border:0;border-radius:12px;font:700 15px Manrope,system-ui,sans-serif;cursor:pointer;transition:background .25s ease,transform .25s ease}.ds-btn-primary:hover{background:#2a0b1f}.ds-btn-primary:active{transform:scale(.97)}.ds-btn-primary:focus-visible{outline:2px solid #1b0717;outline-offset:3px}"
+    },
+    {
+      "name": "Light Button",
+      "kind": "button",
+      "refersTo": "button-light",
+      "description": "Action on the plum navbar and plum panels.",
+      "html": "<button class=\"ds-btn-light\">Enquire now</button>",
+      "css": ".ds-btn-light{background:#f7e9df;color:#1b0717;padding:13px 24px;border:0;border-radius:12px;font:700 15px Manrope,system-ui,sans-serif;cursor:pointer;transition:background .25s ease}.ds-btn-light:hover{background:#fcf1ea}.ds-btn-light:focus-visible{outline:2px solid #f7e9df;outline-offset:3px}"
+    },
+    {
+      "name": "Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Text input with a label above.",
+      "html": "<label class=\"ds-label\">Full name<input class=\"ds-input\" value=\"\"></label>",
+      "css": ".ds-label{display:flex;flex-direction:column;gap:8px;font:700 14px Manrope,system-ui,sans-serif;color:#22101e}.ds-input{background:#fcf7f3;color:#22101e;border:1px solid #efe3db;border-radius:12px;padding:12px 16px;font:400 16px Manrope,system-ui,sans-serif;outline:0;transition:border-color .2s}.ds-input:hover{border-color:#dcc9be}.ds-input:focus{border-color:#1b0717;background:#fff}"
+    },
+    {
+      "name": "Category Chip",
+      "kind": "chip",
+      "refersTo": "button-light",
+      "description": "Label on photos and the active filter.",
+      "html": "<span class=\"ds-chip\">Makeup</span>",
+      "css": ".ds-chip{display:inline-block;background:#f7e9df;color:#1b0717;border-radius:999px;padding:6px 12px;font:700 12px Manrope,system-ui,sans-serif}"
+    },
+    {
+      "name": "Course Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Photo, title, meta and price with a reserve action.",
+      "html": "<article class=\"ds-card\"><div class=\"ds-card-img\"></div><div class=\"ds-card-body\"><h3>Hair Styling Course</h3><p>6 weeks · intermediate</p></div></article>",
+      "css": ".ds-card{background:#fff;border:1px solid #efe3db;border-radius:16px;overflow:hidden;font-family:Manrope,system-ui,sans-serif;width:280px}.ds-card-img{aspect-ratio:16/10;background:#fcf7f3}.ds-card-body{padding:20px}.ds-card h3{margin:0 0 4px;font-size:18px;font-weight:700;color:#22101e}.ds-card p{margin:0;color:#6b5a62;font-size:14px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Academy Prospectus",
+    "overview": "The landing page reads like an institution's prospectus that happens to be full of real student work. Photography of the studio, the mentors and the students carries the page; the structure makes it feel like an academy rather than a salon brochure. A white ground keeps it calm, and plum frames it.",
+    "keyCharacteristics": [
+      "White ground with faint plum-tinted bands for rhythm.",
+      "Plum owns the frame and actions; cream appears only as a small accent.",
+      "One modern sans, moderate headings, short copy.",
+      "Rounded photo crops from the academy's own studio photographs."
+    ],
+    "rules": [
+      { "name": "The Cream Is A Garnish Rule", "body": "Cream marks small things (a badge, a chip, an icon disc). If it covers a region, it is wrong.", "section": "colors" },
+      { "name": "The Plum Frames, White Breathes Rule", "body": "Plum is for the frame and for actions; the content ground stays white.", "section": "colors" },
+      { "name": "The Quiet Headline Rule", "body": "Headings stay at moderate sizes; the photographs lead.", "section": "typography" }
+    ],
+    "dos": [
+      "Use the academy's real studio photographs for imagery.",
+      "Keep copy short and let a photograph or icon carry the point.",
+      "Take name, phone, email, address and social links from the app config only."
+    ],
+    "donts": [
+      "Don't cover a region in cream or let it replace the white ground.",
+      "Don't use shadows, gradients or glass.",
+      "Don't add a kicker or eyebrow above a heading."
+    ]
+  }
+}

@@ -1,8 +1,17 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import toast from "react-hot-toast";
 import { formatPhone } from "@/utils/colors.utils";
+import {
+  PiArrowRight,
+  PiEnvelopeSimpleDuotone,
+  PiMapPinDuotone,
+  PiPhoneDuotone,
+} from "react-icons/pi";
+import Link from "next/link";
+import { useReveal } from "@/utils/motion";
+import usePolicies, { findPrivacyPolicy } from "@/utils/usePolicies";
 
 const initialData = {
   name: "",
@@ -16,7 +25,9 @@ const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:8000";
 
 export default function ContactForm({ selectedCourse = "", appConfig = null }) {
   const [formData, setFormData] = useState(initialData);
-  const [focused, setFocused] = useState("");
+  const root = useRef(null);
+  const privacyPolicy = findPrivacyPolicy(usePolicies());
+  useReveal(root);
   const [courseOptions, setCourseOptions] = useState([]);
 
   useEffect(() => {
@@ -81,251 +92,190 @@ export default function ContactForm({ selectedCourse = "", appConfig = null }) {
     }
   };
 
+  const contactItems = [
+    appConfig?.companyAddress?.[0]?.address && {
+      icon: PiMapPinDuotone,
+      label: "Visit us",
+      value: appConfig.companyAddress[0].address,
+      href: appConfig.companyAddress[0].googleMapLocation || undefined,
+    },
+    appConfig?.phoneNumber && {
+      icon: PiPhoneDuotone,
+      label: "Call us",
+      value: `+91 ${formatPhone(appConfig.phoneNumber)}`,
+      href: `tel:+91${String(appConfig.phoneNumber).replace(/\D/g, "").slice(-10)}`,
+    },
+    appConfig?.email && {
+      icon: PiEnvelopeSimpleDuotone,
+      label: "Email us",
+      value: appConfig.email,
+      href: `mailto:${appConfig.email}`,
+    },
+  ].filter(Boolean);
+
   return (
-    <section
-      className="w-full bg-secondary text-primary py-10 sm:py-24 px-4 sm:px-8 lg:px-16 overflow-hidden relative selection:bg-primary selection:text-secondary"
-      id="contact"
-    >
-      {/* Font & Custom Selection Overrides */}
-      <style jsx global>{`
-        @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Montserrat:wght@300;400;500;600;700&display=swap");
-        .font-serif-editorial {
-          font-family: "Cormorant Garamond", Georgia, serif;
-        }
-        .font-sans-clean {
-          font-family: "Montserrat", sans-serif;
-        }
-        select option {
-          background: #000000;
-          color: #ffffff;
-        }
-        textarea {
-          resize: none;
-        }
-      `}</style>
-
-      {/* Floating Background Accent Blur */}
-      <div className="absolute right-[-10%] top-[20%] w-125 h-125 bg-primary/4 rounded-full blur-[120px] pointer-events-none select-none" />
-
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 relative z-10 items-center">
-        {/* ── LEFT SIDE: ASYMMETRIC EDITORIAL HEADER & METADATA ── */}
-        <div className="lg:col-span-5 flex flex-col items-start gap-8">
-          <div className="flex items-center gap-3 text-[10px] font-sans-clean uppercase font-bold tracking-[0.28em] text-primary/80">
-            <span className="w-8 h-px bg-primary/50" />
-            Get in Touch
+    <section ref={root} className="section bg-white" id="contact">
+      <div className="frame grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
+        <div
+          data-reveal
+          className="lg:col-span-5 on-plum bg-primary text-white rounded-2xl p-7 sm:p-10 flex flex-col gap-8"
+        >
+          <div className="flex flex-col gap-3">
+            <h2 className="h2">Start your beauty career</h2>
+            <p className="text-white/80 leading-relaxed max-w-md">
+              Tell us which course interests you and an advisor will get back to
+              you.
+            </p>
           </div>
 
-          <h2 className="font-serif-editorial text-[clamp(1.8rem,4vw,3rem)] font-light leading-[1.1] tracking-tight text-primary">
-            Start Your Beauty Journey{" "}
-            <span className="italic font-normal text-primary">
-              With The Big Tree Beauty Academy
-            </span>
-          </h2>
-
-          <p className="text-xs md:text-sm font-sans-clean font-light leading-[1.8] text-primary max-w-sm">
-            Whether you&apos;re exploring career opportunities in beauty or
-            ready to enroll in a course, our team is here to guide you every
-            step of the way.
-          </p>
-
-          {/* Luxury Studio Metadata Details block */}
-          <div className="flex flex-col gap-5 pt-8 border-t border-primary/10 w-full font-sans-clean">
-            {appConfig?.companyAddress?.[0]?.address && (
-              <div>
-                <h6 className="text-xs font-bold tracking-widest text-primary uppercase mb-1">
-                  Academy Location
-                </h6>
-                <p className="text-sm text-primary/80 font-normal leading-relaxed max-w-xs">
-                  {appConfig?.companyAddress?.[0]?.address}
-                </p>
-              </div>
-            )}
-            <div className="flex flex-wrap gap-8">
-              {appConfig?.phoneNumber && (
-                <div>
-                  <h6 className="text-xs font-bold tracking-widest text-primary uppercase mb-1">
-                    Direct Line
-                  </h6>
-                  <p className="text-sm text-primary font-normal">
-                    +91 {formatPhone(appConfig.phoneNumber)}
-                  </p>
-                </div>
-              )}
-              {appConfig?.email && (
-                <div>
-                  <h6 className="text-xs font-bold tracking-widest text-primary uppercase mb-1">
-                    Inquiries
-                  </h6>
-                  <p className="text-sm text-primary/80 font-normal">
-                    {appConfig.email}
-                  </p>
-                </div>
-              )}
-            </div>
-          </div>
+          {contactItems.length > 0 && (
+            <ul className="flex flex-col gap-5">
+              {contactItems.map(({ icon: Icon, label, value, href }) => (
+                <li key={label} className="flex items-start gap-4 min-w-0">
+                  <span className="grid place-items-center size-11 shrink-0 rounded-xl bg-white/10 text-gold">
+                    <Icon aria-hidden="true" className="size-5" />
+                  </span>
+                  <div className="flex flex-col min-w-0">
+                    <span className="text-sm font-semibold text-white/70">
+                      {label}
+                    </span>
+                    {href ? (
+                      <a
+                        href={href}
+                        target={href.startsWith("http") ? "_blank" : undefined}
+                        rel={
+                          href.startsWith("http")
+                            ? "noopener noreferrer"
+                            : undefined
+                        }
+                        className="font-semibold wrap-break-word hover:underline underline-offset-4"
+                      >
+                        {value}
+                      </a>
+                    ) : (
+                      <span className="font-semibold wrap-break-word">
+                        {value}
+                      </span>
+                    )}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
 
-        {/* ── RIGHT SIDE: MINIMAL STREAMLINE CONTACT FORM LAYER ── */}
-        <div className="lg:col-span-7 w-full">
-          <form
-            onSubmit={handleSubmit}
-            className="w-full flex flex-col gap-8 font-sans-clean"
-          >
-            {/* Input Row: Name */}
-            <div className="relative w-full group">
+        <div data-reveal className="lg:col-span-7 panel p-6 sm:p-10">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+            <Field label="Full name" htmlFor="cf-name">
               <input
+                id="cf-name"
                 type="text"
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
                 required
-                onFocus={() => setFocused("name")}
-                onBlur={() => setFocused("")}
-                className="w-full bg-transparent border-b border-primary/20 py-3 text-sm text-primary font-light focus:border-primary outline-none transition-all duration-300 placeholder-transparent"
-                placeholder="Name"
+                autoComplete="name"
+                className={inputClass}
               />
-              <label
-                className={`absolute left-0 transition-all duration-300 pointer-events-none text-xs tracking-wider uppercase font-medium ${
-                  focused === "name" || formData.name
-                    ? "-top-4 text-[10px] text-primary"
-                    : "top-3 text-primary"
-                }`}
-              >
-                Full Name *
-              </label>
-            </div>
+            </Field>
 
-            {/* Grid Splitter for Fields */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-              {/* Input: Email */}
-              <div className="relative w-full group">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <Field label="Email address" htmlFor="cf-email">
                 <input
+                  id="cf-email"
                   type="email"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  onFocus={() => setFocused("email")}
-                  onBlur={() => setFocused("")}
-                  className="w-full bg-transparent border-b border-primary/20 py-3 text-sm text-primary font-light focus:border-primary outline-none transition-all duration-300 placeholder-transparent"
-                  placeholder="Email"
+                  autoComplete="email"
+                  className={inputClass}
                 />
-                <label
-                  className={`absolute left-0 transition-all duration-300 pointer-events-none text-xs tracking-wider uppercase font-medium ${
-                    focused === "email" || formData.email
-                      ? "-top-4 text-[10px] text-primary"
-                      : "top-3 text-primary"
-                  }`}
-                >
-                  Email Address *
-                </label>
-              </div>
+              </Field>
 
-              {/* Input: Phone Number */}
-              <div className="relative w-full group">
+              <Field label="Mobile number" htmlFor="cf-phone">
                 <input
-                  type="text"
+                  id="cf-phone"
+                  type="tel"
                   name="phoneNumber"
                   value={formData.phoneNumber}
                   onChange={handleChange}
                   required
-                  onFocus={() => setFocused("phoneNumber")}
-                  onBlur={() => setFocused("")}
-                  className="w-full bg-transparent border-b border-primary/20 py-3 text-sm text-primary font-light focus:border-primary outline-none transition-all duration-300 placeholder-transparent"
-                  placeholder="Phone"
+                  autoComplete="tel"
+                  className={inputClass}
                 />
-                <label
-                  className={`absolute left-0 transition-all duration-300 pointer-events-none text-xs tracking-wider uppercase font-medium ${
-                    focused === "phoneNumber" || formData.phoneNumber
-                      ? "-top-4 text-[10px] text-primary"
-                      : "top-3 text-primary"
-                  }`}
-                >
-                  Mobile Number *
-                </label>
-              </div>
+              </Field>
             </div>
 
-            {/* Selection Dropdown Custom Input */}
-            <div className="relative w-full group pt-2">
+            <Field label="Course" htmlFor="cf-course">
               <select
+                id="cf-course"
                 name="courseInterest"
                 value={formData.courseInterest}
                 onChange={handleChange}
                 required
-                onFocus={() => setFocused("courseInterest")}
-                onBlur={() => setFocused("")}
-                className="w-full bg-transparent border-b border-primary/20 py-3 text-sm text-primary font-light focus:border-primary outline-none transition-all duration-300 appearance-none cursor-pointer"
+                className={`${inputClass} cursor-pointer`}
               >
-                <option value="" disabled hidden />
+                <option value="" disabled>
+                  Select a course
+                </option>
                 {courseOptions.map((course) => (
                   <option key={course} value={course}>
                     {course}
                   </option>
                 ))}
               </select>
-              <label
-                className={`absolute left-0 transition-all duration-300 pointer-events-none text-xs tracking-wider uppercase font-medium ${
-                  focused === "courseInterest" || formData.courseInterest
-                    ? "-top-4 text-[10px] text-primary"
-                    : "top-3 text-primary"
-                }`}
-              >
-                Select Course *
-              </label>
-              {/* Custom Down Arrow Icon */}
-              <div className="absolute right-2 top-4 pointer-events-none text-primary/50">
-                <svg
-                  width="12"
-                  height="12"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                >
-                  <polyline points="6 9 12 15 18 9" />
-                </svg>
-              </div>
-            </div>
+            </Field>
 
-            {/* Input Box: Message */}
-            <div className="relative w-full group pt-2">
+            <Field label="Message (optional)" htmlFor="cf-message">
               <textarea
+                id="cf-message"
                 name="message"
                 value={formData.message}
                 onChange={handleChange}
-                rows={4}
-                onFocus={() => setFocused("message")}
-                onBlur={() => setFocused("")}
-                className="w-full bg-transparent border-b border-primary/20 py-3 text-sm text-primary font-light focus:border-primary outline-none transition-all duration-300 placeholder-transparent"
-                placeholder="Message"
+                rows={3}
+                className={`${inputClass} resize-none`}
               />
-              <label
-                className={`absolute left-0 transition-all duration-300 pointer-events-none text-xs tracking-wider uppercase font-medium ${
-                  focused === "message" || formData.message
-                    ? "-top-4 text-[10px] text-primary"
-                    : "top-3 text-primary"
-                }`}
-              >
-                Tell us about your aspirations
-              </label>
-            </div>
+            </Field>
 
-            {/* Custom Modernist Action Submission Button */}
-            <div className="flex justify-start w-full pt-4">
+            <div className="pt-1">
               <button
                 type="submit"
-                className="relative group overflow-hidden px-10 py-4 bg-primary text-secondary font-bold text-xs tracking-[0.2em] uppercase rounded-full transition-all duration-300 transform active:scale-95 shadow-[0_4px_20px_rgba(0,0,0,0.2)]"
+                className="btn btn-primary w-full sm:w-auto"
               >
-                <span className="relative z-10 flex items-center gap-2">
-                  Message / Query <span className="text-[10px]">✦</span>
-                </span>
-                <div className="absolute inset-0 bg-white/20 -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out" />
+                Send message <PiArrowRight aria-hidden="true" />
               </button>
+              {privacyPolicy && (
+                <p className="mt-3 text-sm text-muted">
+                  We use these details only to contact you about your enquiry.
+                  Read our{" "}
+                  <Link
+                    href={`/policies/${privacyPolicy.slug || privacyPolicy._id}`}
+                    className="font-semibold text-primary underline underline-offset-4"
+                  >
+                    {privacyPolicy.title}
+                  </Link>
+                  .
+                </p>
+              )}
             </div>
           </form>
         </div>
       </div>
     </section>
+  );
+}
+
+const inputClass =
+  "w-full bg-surface text-ink rounded-xl border border-line px-4 py-3 text-base outline-none transition-colors hover:border-[#dcc9be] focus:border-primary focus:bg-white";
+
+function Field({ label, htmlFor, children }) {
+  return (
+    <div className="flex flex-col gap-2">
+      <label htmlFor={htmlFor} className="text-sm font-bold">
+        {label}
+      </label>
+      {children}
+    </div>
   );
 }

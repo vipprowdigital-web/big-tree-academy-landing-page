@@ -1,26 +1,35 @@
 "use client";
 
-import Image from "next/image";
+import BrandLogo from "@/components/BrandLogo";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import {
-  FaPhoneAlt,
   FaFacebookF,
   FaInstagram,
   FaYoutube,
   FaGoogle,
   FaLinkedinIn,
 } from "react-icons/fa";
-import { SiGmail } from "react-icons/si";
-import { FaLocationDot, FaXTwitter } from "react-icons/fa6";
+import { FaXTwitter } from "react-icons/fa6";
 import { IoLogoWhatsapp } from "react-icons/io";
+import { PiEnvelopeSimple, PiMapPin, PiPhone } from "react-icons/pi";
 import { scrollTo } from "@/utils/scroll.utils";
 import { formatPhone, ensureCountryCode } from "@/utils/colors.utils";
+import usePolicies from "@/utils/usePolicies";
 
-const PRIMARY = "#28082e";
-const SECONDARY = "#ffe9cb";
+const QUICK_LINKS = [
+  { label: "Courses", id: "courses" },
+  { label: "Why Choose us", id: "about" },
+  { label: "Student work", id: "gallery" },
+  { label: "Articles", id: "articles" },
+  { label: "Admission", id: "admission" },
+  { label: "Contact", id: "contact" },
+];
 
 export default function Footer({ appConfig: config }) {
-  const loading = false;
-
+  const router = useRouter();
+  const onHome = usePathname() === "/";
+  const policies = usePolicies();
   const appName = config?.appName || "";
   const phoneNumber = config?.phoneNumber
     ? `+91 ${formatPhone(config.phoneNumber)}`
@@ -37,20 +46,20 @@ export default function Footer({ appConfig: config }) {
     {
       name: "Address",
       value: address?.address || "",
-      link: address?.googleMapLocation || "#",
-      icon: <FaLocationDot size={18} />,
+      link: address?.googleMapLocation || undefined,
+      icon: <PiMapPin aria-hidden="true" />,
     },
     {
       name: "Phone",
       value: phoneNumber,
       link: `tel:+${phoneRaw}`,
-      icon: <FaPhoneAlt size={18} />,
+      icon: <PiPhone aria-hidden="true" />,
     },
     {
       name: "Email",
       value: email,
       link: `mailto:${email}`,
-      icon: <SiGmail size={18} />,
+      icon: <PiEnvelopeSimple aria-hidden="true" />,
     },
   ].filter((d) => d.value);
 
@@ -64,66 +73,32 @@ export default function Footer({ appConfig: config }) {
     { name: "LinkedIn", link: config?.linkedinLink, icon: <FaLinkedinIn /> },
   ].filter((s) => s.link);
 
+  const go = (id) => {
+    if (onHome) scrollTo(id);
+    else router.push(`/#${id}`);
+  };
+
   return (
-    <>
-      <style jsx global>{`
-        @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap");
-        .font-serif-editorial {
-          font-family: "Cormorant Garamond", serif;
-        }
-        .font-sans-clean {
-          font-family: "Plus Jakarta Sans", sans-serif;
-        }
-      `}</style>
-
-      <footer
-        className="w-full relative overflow-hidden"
-        style={{ background: PRIMARY }}
-      >
-        {/* ── Watermark text ── */}
-        {/* <span
-          aria-hidden="true"
-          className="font-serif-editorial pointer-events-none select-none absolute bottom-0 -right-2.5 leading-none opacity-[0.04]"
-          style={{ fontSize: "180px", color: SECONDARY }}
-        >
-          BT
-        </span> */}
-
-        {/* ── Thin top accent line ── */}
-        <div style={{ height: "1px", background: `${SECONDARY}18` }} />
-
-        {/* ── Main content grid ── */}
-        <div className="w-full max-w-7xl mx-auto px-6 md:px-12 py-14 grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 relative z-10">
-          {/* COL 1 — Brand */}
-          <div className="flex flex-col gap-5">
-            <Image
-              src="/assets/images/logos/big-tree-logo2.png"
-              alt={`${appName} Logo`}
-              width={100}
-              height={100}
-              loading="eager"
-              priority
-              className="sm:w-40"
-            />
-            <p
-              className="font-sans-clean text-[13px] leading-relaxed mt-1"
-              style={{ color: `${SECONDARY}88` }}
+    <footer className="bg-primary text-white on-plum">
+      <div className="frame pt-14 sm:pt-18 pb-24 md:pb-8 flex flex-col gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-8">
+          <div className="md:col-span-5 flex flex-col gap-5">
+            <Link
+              href="/"
+              aria-label={appName ? `${appName} home` : "Home"}
+              className="self-start"
             >
-              {appName} is a premium beauty academy empowering aspiring artists
-              through practical training, global curriculum, and expert
-              mentorship.
-            </p>
-
-            {/* Divider */}
-            <div
-              style={{
-                width: "32px",
-                height: "1px",
-                background: `${SECONDARY}30`,
-              }}
-            />
-
-            {/* Social icons */}
+              <BrandLogo
+                alt={appName ? `${appName} logo` : "Logo"}
+                className="h-20"
+              />
+            </Link>
+            {appName && (
+              <p className="text-white/75 leading-relaxed max-w-sm">
+                {appName} trains makeup, hair, beauty and nail professionals
+                through hands-on practice and expert mentorship.
+              </p>
+            )}
             {socials.length > 0 && (
               <div className="flex flex-wrap gap-2.5">
                 {socials.map((social) => (
@@ -133,22 +108,7 @@ export default function Footer({ appConfig: config }) {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={social.name}
-                    className="w-9 h-9 rounded-full flex items-center justify-center text-[15px] transition-all duration-300"
-                    style={{
-                      background: `${SECONDARY}12`,
-                      border: `0.5px solid ${SECONDARY}25`,
-                      color: `${SECONDARY}88`,
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.background = SECONDARY;
-                      e.currentTarget.style.color = PRIMARY;
-                      e.currentTarget.style.borderColor = SECONDARY;
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.background = `${SECONDARY}12`;
-                      e.currentTarget.style.color = `${SECONDARY}88`;
-                      e.currentTarget.style.borderColor = `${SECONDARY}25`;
-                    }}
+                    className="size-10 grid place-items-center rounded-full bg-white/10 transition-colors duration-300 hover:bg-secondary hover:text-primary"
                   >
                     {social.icon}
                   </a>
@@ -157,125 +117,88 @@ export default function Footer({ appConfig: config }) {
             )}
           </div>
 
-          {/* COL 2 — Quick links */}
-          <div className="flex flex-col gap-4">
-            <p
-              className="font-sans-clean text-[10px] font-medium tracking-[0.18em] uppercase mb-2"
-              style={{ color: `${SECONDARY}45` }}
-            >
-              Quick Links
-            </p>
-            {[
-              { label: "Courses", href: "courses" },
-              { label: "Gallery", href: "gallery" },
-              { label: "Admission", href: "admission" },
-              { label: "About Academy", href: "about" },
-              { label: "Contact Us", href: "contact" },
-            ].map((link) => (
-              <button
-                key={link.label}
-                onClick={() => scrollTo(link.href)}
-                // href={link.href}
-                className="font-sans-clean text-[13px] font-medium flex items-center gap-2 group transition-all duration-200 w-fit"
-                style={{ color: `${SECONDARY}90` }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = SECONDARY)}
-                onMouseLeave={(e) =>
-                  (e.currentTarget.style.color = `${SECONDARY}66`)
-                }
-              >
-                {/* <span
-                  className="inline-block transition-transform duration-200 group-hover:translate-x-1"
-                  style={{ fontSize: "10px" }}
-                >
-                  ──
-                </span> */}
-                {link.label}
-              </button>
-            ))}
+          <div className="md:col-span-3 flex flex-col gap-4">
+            <h3 className="text-sm font-bold text-gold">Explore</h3>
+            <ul className="grid grid-cols-2 md:grid-cols-1 gap-x-4 gap-y-2.5 text-sm">
+              {QUICK_LINKS.map((link) => (
+                <li key={link.id}>
+                  <button
+                    type="button"
+                    onClick={() => go(link.id)}
+                    className="text-white/75 hover:text-white transition-colors"
+                  >
+                    {link.label}
+                  </button>
+                </li>
+              ))}
+            </ul>
           </div>
 
-          {/* COL 3 — Contact details */}
-          <div className="flex flex-col gap-6">
-            <p
-              className="font-sans-clean text-[10px] font-medium tracking-[0.18em] uppercase mb-2"
-              style={{ color: `${SECONDARY}45` }}
-            >
-              Get in Touch
-            </p>
-            {details.map((detail) => (
-              <a
-                key={detail.name}
-                href={detail.link}
-                target={detail.name === "Address" ? "_blank" : "_self"}
-                rel={
-                  detail.name === "Address" ? "noopener noreferrer" : undefined
-                }
-                className="flex items-start gap-3 group cursor-pointer"
-              >
-                <div
-                  className="w-9 h-9 rounded-full flex items-center justify-center shrink-0 mt-0.5 transition-all duration-300 group-hover:scale-110"
-                  style={{
-                    background: `${SECONDARY}10`,
-                    border: `0.5px solid ${SECONDARY}25`,
-                    color: `${SECONDARY}88`,
-                  }}
-                >
-                  {detail.icon}
-                </div>
-                <div className="flex flex-col gap-0.5">
-                  <span
-                    className="font-sans-clean text-[10px] font-medium tracking-widest uppercase"
-                    style={{ color: `${SECONDARY}45` }}
+          {details.length > 0 && (
+            <div className="md:col-span-4 flex flex-col gap-4">
+              <h3 className="text-sm font-bold text-gold">Contact</h3>
+              <ul className="flex flex-col gap-4 text-sm">
+                {details.map((detail) => (
+                  <li
+                    key={detail.name}
+                    className="flex items-start gap-3 min-w-0"
                   >
-                    {detail.name}
-                  </span>
-                  <span
-                    className="font-sans-clean text-[13px] leading-snug transition-colors duration-200 group-hover:text-(--bs-hover)"
-                    style={{ color: `${SECONDARY}77` }}
-                    onMouseEnter={(e) =>
-                      (e.currentTarget.style.color = SECONDARY)
-                    }
-                    onMouseLeave={(e) =>
-                      (e.currentTarget.style.color = `${SECONDARY}77`)
-                    }
-                  >
-                    {detail.value}
-                  </span>
-                </div>
-              </a>
-            ))}
-          </div>
+                    <span className="mt-0.5 text-gold">{detail.icon}</span>
+                    {detail.link ? (
+                      <a
+                        href={detail.link}
+                        target={
+                          detail.link.startsWith("http") ? "_blank" : undefined
+                        }
+                        rel={
+                          detail.link.startsWith("http")
+                            ? "noopener noreferrer"
+                            : undefined
+                        }
+                        className="text-white/75 hover:text-white wrap-break-word min-w-0"
+                      >
+                        {detail.value}
+                      </a>
+                    ) : (
+                      <span className="text-white/75 wrap-break-word min-w-0">
+                        {detail.value}
+                      </span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
 
-        {/* ── Copyright bar ── */}
-        <div
-          className="w-full max-w-6xl mx-auto px-6 md:px-12 py-5 flex flex-col md:flex-row justify-between items-center gap-3 relative z-10"
-          style={{ borderTop: `0.5px solid ${SECONDARY}15` }}
-        >
-          <p
-            className="font-sans-clean text-[12px] text-center"
-            style={{ color: `${SECONDARY}44` }}
-          >
-            &copy; {new Date().getFullYear()}{" "}
-            <span style={{ color: `${SECONDARY}88` }}>{appName}.</span> All
-            Rights Reserved.
+        <div className="pt-6 border-t border-white/15 flex flex-col md:flex-row items-center justify-center md:justify-between gap-2 text-center md:text-left text-sm text-white/65">
+          <p>
+            &copy; {new Date().getFullYear()} {appName}. All rights reserved.
           </p>
+          {policies.length > 0 && (
+            <ul className="flex flex-wrap items-center justify-center gap-x-5 gap-y-1">
+              {policies.map((policy) => (
+                <li key={policy._id}>
+                  <Link
+                    href={`/policies/${policy.slug || policy._id}`}
+                    className="hover:text-white transition-colors"
+                  >
+                    {policy.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
           <a
             href="https://vipprow.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="font-sans-clean text-[12px] transition-colors duration-300 sm:mb-0 mb-20"
-            style={{ color: `${SECONDARY}44` }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = SECONDARY)}
-            onMouseLeave={(e) =>
-              (e.currentTarget.style.color = `${SECONDARY}44`)
-            }
+            className="hover:text-white transition-colors"
           >
-            Developed by{" "}
-            <span style={{ color: SECONDARY, fontWeight: 600 }}>Vipprow</span>
+            Developed by <span className="font-bold text-white">Vipprow</span>
           </a>
         </div>
-      </footer>
-    </>
+      </div>
+    </footer>
   );
 }

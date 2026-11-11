@@ -1,148 +1,116 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
+import {
+  PiChatCircleDotsDuotone,
+  PiBookOpenTextDuotone,
+  PiClipboardTextDuotone,
+  PiUserCheckDuotone,
+  PiSparkleDuotone,
+} from "react-icons/pi";
+import { gsap, ScrollTrigger, useGSAP, useReveal } from "@/utils/motion";
 
 const STEPS = [
   {
-    num: "Step 01",
-    icon: "ti-messages",
-    label: "Career Consultation",
-    desc: "Speak with our team and discover the course that best matches your interests and career goals.",
+    icon: PiChatCircleDotsDuotone,
+    label: "Career consultation",
+    desc: "Talk to our team about your goals and the right course.",
   },
   {
-    num: "Step 02",
-    icon: "ti-book-2",
-    label: "Course Selection",
-    desc: "Choose the program that aligns with your passion, skill level, and future aspirations.",
+    icon: PiBookOpenTextDuotone,
+    label: "Course selection",
+    desc: "Choose the course that suits your skill level.",
   },
   {
-    num: "Step 03",
-    icon: "ti-clipboard-check",
-    label: "Enrollment Confirmation",
-    desc: "Complete your registration and secure your seat in your preferred course.",
+    icon: PiClipboardTextDuotone,
+    label: "Enrolment",
+    desc: "Complete registration and secure your seat.",
   },
   {
-    num: "Step 04",
-    icon: "ti-user-check",
-    label: "Student Onboarding",
-    desc: "Receive complete course information, guidance, and support before your classes begin.",
+    icon: PiUserCheckDuotone,
+    label: "Onboarding",
+    desc: "Get your course details and support before day one.",
   },
   {
-    num: "Step 05",
-    icon: "ti-sparkles",
-    label: "Start Your Training",
-    desc: "Join your batch, begin hands-on learning, and take the first step toward becoming a beauty professional.",
+    icon: PiSparkleDuotone,
+    label: "Start training",
+    desc: "Join your batch and begin hands-on learning.",
   },
 ];
 
 export default function AdmissionTimeline() {
-  const sectionRef = useRef(null);
-  const [visible, setVisible] = useState(false);
+  const root = useRef(null);
+  useReveal(root);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setVisible(true);
-      },
-      { threshold: 0.2 },
-    );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
+  // The path fills in as the visitor scrolls through the steps.
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        const steps = gsap.utils.toArray("[data-step]", root.current);
+        const fill = root.current.querySelector("[data-path-fill]");
+        const paint = (self) => {
+          const horizontal = window.matchMedia("(min-width: 1024px)").matches;
+          gsap.set(fill, {
+            scaleX: horizontal ? self.progress : 1,
+            scaleY: horizontal ? 1 : self.progress,
+          });
+          steps.forEach((step, i) =>
+            step.classList.toggle(
+              "is-on",
+              self.progress >= i / (steps.length - 1) - 0.02,
+            ),
+          );
+        };
+        ScrollTrigger.create({
+          trigger: "[data-steps]",
+          start: "top 70%",
+          end: "bottom 60%",
+          onUpdate: paint,
+          onRefresh: paint,
+        });
+        return () => steps.forEach((s) => s.classList.remove("is-on"));
+      });
+    },
+    { scope: root },
+  );
 
   return (
-    <section
-      ref={sectionRef}
-      className="w-full bg-primary text-secondary relative overflow-hidden px-6 py-10 md:px-12 md:py-20"
-      id="admission"
-    >
-      {/* Google Fonts */}
-      <style jsx global>{`
-        @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap");
-        @import url("https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css");
-        .font-serif-editorial {
-          font-family: "Cormorant Garamond", serif;
-        }
-        .font-sans-clean {
-          font-family: "Plus Jakarta Sans", sans-serif;
-        }
-      `}</style>
-
-      {/* Watermark number */}
-      <span
-        aria-hidden="true"
-        className="font-serif-editorial pointer-events-none select-none absolute -top-5 -right-2.5 text-secondary/4 leading-none"
-        style={{ fontSize: "220px" }}
-      >
-        5
-      </span>
-
-      {/* ── HEADER ── */}
-      <p className="font-sans-clean text-[11px] font-medium tracking-[0.18em] uppercase text-secondary/45 mb-2.5">
-        Admission Journey
-      </p>
-      <h2 className="font-serif-editorial text-[clamp(2rem,4vw,3.2rem)] font-normal leading-[1.1] text-secondary">
-        Your path to
-        <br />
-        <em className="font-light italic">beauty career</em> success
-      </h2>
-      <div className="w-9 h-px bg-secondary/25 my-3" />
-      <p className="font-sans-clean text-[13px] leading-relaxed text-secondary/60 max-w-120 mb-12">
-        Take the first step toward a professional future with a simple and
-        guided admission process designed to help you start your learning
-        journey with confidence.
-      </p>
-
-      {/* ── TIMELINE ── */}
-      <div className="relative">
-        {/* Connector line */}
-        <div className="hidden md:block absolute top-7 left-[10%] right-[10%] h-px bg-secondary/15 z-0">
-          <div
-            className="h-px bg-secondary/35 transition-all duration-[1400ms] ease-in-out"
-            style={{ width: visible ? "100%" : "0%" }}
-          />
+    <section ref={root} id="admission" className="section bg-surface">
+      <div className="frame flex flex-col gap-12">
+        <div data-reveal className="flex flex-col gap-3 max-w-2xl">
+          <h2 className="h2">Join in five simple steps</h2>
+          <p className="lead">From first conversation to first class.</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-10 md:gap-4 relative z-10">
-          {STEPS.map((step, i) => (
-            <div
-              key={step.num}
-              className={`flex flex-col md:items-center md:text-center transition-all duration-500 ease-out ${
-                visible
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-4"
-              }`}
-              style={{ transitionDelay: visible ? `${i * 120}ms` : "0ms" }}
+        <ol data-steps className="relative grid gap-8 lg:grid-cols-5 lg:gap-6">
+          {/* the path: vertical on phones, horizontal on desktop */}
+          <span
+            aria-hidden="true"
+            className="absolute left-5.5 top-6 bottom-6 w-0.5 bg-line lg:left-6 lg:right-6 lg:top-5.5 lg:bottom-auto lg:w-auto lg:h-0.5"
+          >
+            <span
+              data-path-fill
+              className="absolute inset-0 bg-primary origin-top lg:origin-left"
+            />
+          </span>
+
+          {STEPS.map(({ icon: Icon, label, desc }) => (
+            <li
+              key={label}
+              data-step
+              className="step relative flex lg:flex-col gap-4 lg:gap-5"
             >
-              {/* Node circle */}
-              <div className="group w-14 h-14 rounded-full border border-secondary/25 bg-secondary/[0.06] flex items-center justify-center mb-4 shrink-0 hover:bg-secondary/[0.14] hover:border-secondary/50 transition-colors duration-300">
-                <i
-                  className={`ti ${step.icon} text-[22px] text-secondary/70 group-hover:text-secondary/100 transition-opacity duration-300`}
-                  aria-hidden="true"
-                />
-              </div>
-
-              {/* Step number */}
-              <span className="font-serif-editorial text-[11px] tracking-[0.12em] text-secondary/35 mb-1.5">
-                {step.num}
+              <span className="step-dot relative z-10 grid place-items-center size-12 shrink-0 rounded-full border border-line bg-white text-primary transition-colors duration-500">
+                <Icon aria-hidden="true" className="size-5" />
               </span>
-
-              {/* Label */}
-              <p className="font-sans-clean text-[13px] font-medium text-secondary leading-snug mb-2">
-                {step.label}
-              </p>
-
-              {/* Description */}
-              <p className="font-sans-clean text-[11.5px] leading-[1.65] text-secondary/50 max-w-32.5 hidden md:block">
-                {step.desc}
-              </p>
-              {/* Mobile desc — full width */}
-              <p className="font-sans-clean text-[12px] leading-[1.65] text-secondary/50 md:hidden">
-                {step.desc}
-              </p>
-            </div>
+              <div className="flex flex-col gap-1">
+                <h3 className="h3">{label}</h3>
+                <p className="text-sm text-muted leading-relaxed">{desc}</p>
+              </div>
+            </li>
           ))}
-        </div>
+        </ol>
       </div>
     </section>
   );

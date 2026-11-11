@@ -84,7 +84,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
     legalComplianceNav: [
       {
-        title: "Policy",
+        title: "Privacy Policy",
         url: "/admin/policy",
         icon: FileBadge,
         isActive: isActive("/admin/policy"),
@@ -164,22 +164,22 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     ],
 
     contentManagementNav: [
-      // {
-      //   title: "Articles",
-      //   url: "/admin/blog",
-      //   icon: BookCopy,
-      //   isActive: isActive("/admin/blog"),
-      //   items: [
-      //     { title: "All Articles", url: "/admin/blog?filter=all" },
-      //     { title: "Active Articles", url: "/admin/blog?filter=active" },
-      //     { title: "Inactive Articles", url: "/admin/blog?filter=inactive" },
-      //     { title: "Featured Articles", url: "/admin/blog?filter=featured" },
-      //     {
-      //       title: "Non-Featured Articles",
-      //       url: "/admin/blog?filter=nonfeatured",
-      //     },
-      //   ],
-      // },
+      {
+        title: "Articles",
+        url: "/admin/blog",
+        icon: BookCopy,
+        isActive: isActive("/admin/blog"),
+        items: [
+          { title: "All Articles", url: "/admin/blog?filter=all" },
+          { title: "Active Articles", url: "/admin/blog?filter=active" },
+          { title: "Inactive Articles", url: "/admin/blog?filter=inactive" },
+          { title: "Featured Articles", url: "/admin/blog?filter=featured" },
+          {
+            title: "Non-Featured Articles",
+            url: "/admin/blog?filter=nonfeatured",
+          },
+        ],
+      },
 
       {
         title: "Course",
@@ -237,7 +237,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <div className="flex aspect-square size-10 items-center justify-center overflow-hidden rounded-lg">
               <img
                 src="/logo/big-tree-logo.png"
-                alt="The Big Tree Academy"
+                alt="The Big Tree Beauty Academy"
                 className="h-full w-full object-contain"
               />
             </div>
@@ -267,10 +267,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           items={data.communicationCenterNav}
           groupName="Communication Center"
         />
-        {/* <NavMain
+        <NavMain
           items={data.legalComplianceNav}
           groupName="Legal & Compliance"
-        /> */}
+        />
         {/* <NavMain
           items={data.careerManagementNav}
           groupName="Career Management"
