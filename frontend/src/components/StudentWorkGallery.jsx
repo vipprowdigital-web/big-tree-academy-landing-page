@@ -8,7 +8,7 @@ const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:8000";
 
 function PhotoCard({ photo }) {
   const src = photo.imageUrl || photo.url || photo.src || photo.image;
-  const alt = photo.alt || photo.title || photo.label || "Student work";
+  const alt = photo.alt || photo.title || photo.label || "Gallery photo";
   const tag = photo.tag || photo.category;
   const label = photo.label || photo.title || photo.alt;
 
@@ -180,15 +180,15 @@ export default function GallerySection() {
 
   useReveal(root, [loading]);
 
-  if (!loading && photos.length === 0 && !error) return null;
+  if (!loading && photos.length === 0 && !error) return <div ref={root} hidden />;
 
   return (
     <section ref={root} id="gallery" className="section bg-surface">
       <div className="frame flex flex-col gap-10">
         <div data-reveal className="flex flex-col gap-3 max-w-2xl">
-          <h2 className="h2">Student work</h2>
+          <h2 className="h2">Gallery</h2>
           <p className="lead">
-            Looks created by our students, straight from the academy floor.
+            A glimpse of life at our academy: classes, practice sessions and student looks.
           </p>
         </div>
 

@@ -175,12 +175,14 @@ export function SignupForm({
               </FieldDescription>
             </FieldGroup>
           </form>
-          <div className="relative hidden md:block bg-primary">
-            <img
-              src="/logo/big-tree-logo.png"
-              alt="Image"
-              className="absolute inset-0 h-full w-full object-contain"
-            />
+          <div className="hidden items-center justify-center bg-white md:flex">
+            <div className="aspect-6/5 w-4/5 max-w-md overflow-hidden">
+              <img
+                src="/logo/the-big-tree-logo.png"
+                alt="The Big Tree Academy"
+                className="h-full w-full object-cover object-center"
+              />
+            </div>
           </div>
         </CardContent>
       </Card>

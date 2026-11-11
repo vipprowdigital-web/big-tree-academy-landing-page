@@ -8,7 +8,7 @@ import { scrollTo } from "@/utils/scroll.utils";
 const LINKS = [
   { label: "Courses", id: "courses" },
   { label: "Why Choose us", id: "about" },
-  { label: "Student work", id: "gallery" },
+  { label: "Gallery", id: "gallery" },
   { label: "Articles", id: "articles" },
   { label: "Admission", id: "admission" },
 ];

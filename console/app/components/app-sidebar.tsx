@@ -234,10 +234,19 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <div className="flex aspect-square size-10 items-center justify-center overflow-hidden rounded-lg">
+            {/* Expanded: full logo (cropped to remove the image's blank margin) */}
+            <div className="ml-4 w-15 overflow-hidden rounded-lg  group-data-[collapsible=icon]:hidden">
               <img
-                src="/logo/big-tree-logo.png"
-                alt="The Big Tree Beauty Academy"
+                src="/logo/the-big-tree-mark.png"
+                alt="The Big Tree Academy"
+                className="h-full w-full object-cover object-center"
+              />
+            </div>
+            {/* Collapsed: compact mark */}
+            <div className="hidden size-8 items-center justify-center overflow-hidden rounded-lg bg-white group-data-[collapsible=icon]:flex">
+              <img
+                src="/logo/the-big-tree-mark.png"
+                alt="The Big Tree Academy"
                 className="h-full w-full object-contain"
               />
             </div>

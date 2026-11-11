@@ -8,6 +8,22 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 export { gsap, ScrollTrigger, useGSAP };
 
+// Sections above/below grow as fetched content, images and fonts arrive, which
+// moves every trigger's start position. Re-measure whenever the page height
+// changes so entrances still fire (and nothing is left stuck at opacity 0).
+if (typeof window !== "undefined" && !window.__stRefreshBound) {
+  window.__stRefreshBound = true;
+  let timer;
+  const refresh = () => {
+    clearTimeout(timer);
+    timer = setTimeout(() => ScrollTrigger.refresh(), 150);
+  };
+  window.addEventListener("load", refresh);
+  if ("ResizeObserver" in window) {
+    new ResizeObserver(refresh).observe(document.body);
+  }
+}
+
 /**
  * Scroll entrances for everything inside `scope`.
  *   data-reveal            -> the element rises and fades in once
@@ -18,6 +34,7 @@ export { gsap, ScrollTrigger, useGSAP };
 export function useReveal(scope, deps = []) {
   useGSAP(
     () => {
+      if (!scope.current) return;
       const mm = gsap.matchMedia();
       mm.add("(prefers-reduced-motion: no-preference)", () => {
         gsap.utils.toArray("[data-reveal]", scope.current).forEach((el) => {

@@ -11,7 +11,7 @@ export default function CtaBand({ onContactClick }) {
   useReveal(root);
 
   return (
-    <section ref={root} className="bg-white pt-14">
+    <section ref={root} className="bg-white pt-14 pb-[clamp(3.5rem,8vw,6.5rem)] has-[+#articles]:pb-0">
       <div className="frame">
         <div
           data-reveal

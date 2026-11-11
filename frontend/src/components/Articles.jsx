@@ -191,7 +191,8 @@ export default function Articles() {
 
   useReveal(root, [loading]);
 
-  if (!loading && articles.length === 0) return null;
+  // Keep the ref attached even when empty so the reveal hook always has a valid scope.
+  if (!loading && articles.length === 0) return <div ref={root} hidden />;
 
   return (
     <section ref={root} id="articles" className="section bg-white">
