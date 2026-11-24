@@ -1,13 +1,16 @@
-import { Manrope } from "next/font/google";
+import localFont from "next/font/local";
 import Script from "next/script";
 import "./globals.css";
 
 const GTM_ID = "GTM-THWGH5GB";
 
-const manrope = Manrope({
+// Self-hosted (bundled from @fontsource-variable/manrope) so the build never
+// needs to reach fonts.googleapis.com.
+const manrope = localFont({
+  src: "../../node_modules/@fontsource-variable/manrope/files/manrope-latin-wght-normal.woff2",
   variable: "--font-manrope",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: "200 800",
+  display: "swap",
 });
 
 export const metadata = {
